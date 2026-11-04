@@ -1,24 +1,43 @@
 {
   "name": "@liuhange/party-eco-agent",
-  "version": "1.0.0",
-  "description": "党群生态Agent — 供需智能匹配+风险审核+政策推送+诉求派单+街道治理看板",
-  "license": "MIT",
+  "version": "1.0.1",
+  "description": "Party-building led street industry ecosystem collaboration plugin — enterprise profiling, supply-demand matching, policy parsing, grievance dispatch",
   "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib/**/*.js",
+    "lib/types/**/*.d.ts",
+    "cordis.patch.yml"
+  ],
   "dsh": {
     "bundle": {
       "patch": "./cordis.patch.yml"
     }
   },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liuhange789/party-eco-agent.git"
+  },
   "keywords": [
     "dsh-plugin",
-    "party-eco",
-    "agent",
-    "government",
-    "governance",
+    "party-building",
+    "street-industry",
+    "ecosystem",
+    "enterprise",
     "supply-demand",
-    "risk-audit",
-    "policy-push",
-    "complaint-dispatch",
-    "street-governance"
-  ]
+    "policy",
+    "grievance"
+  ],
+  "scripts": {
+    "test": "node -e \"console.log('ok')\""
+  }
 }
