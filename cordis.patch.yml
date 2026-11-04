@@ -1,3 +1,4 @@
+# Cordis Framework Patch Declaration for @liuhange/party-eco-agent
 - insert:
     - id: "@liuhange/party-eco-agent"
       name: "@liuhange/party-eco-agent"
