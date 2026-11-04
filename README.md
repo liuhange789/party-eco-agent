@@ -1,3 +1,23 @@
 # party-eco-agent
 
-DSE 觀流绑成第1代室，宝贵事任务亊事内容，宝乡代定助改物助，宝乡代项目改物助，宝代语法语法窿命豞去用
+Party-building led street industry ecosystem collaboration plugin.
+
+## Features
+
+- **Enterprise Profiling** — Profile street-level enterprises with industry, scale, and credit data
+- **Supply-Demand Matching** — Match supply and demand items by category and quantity
+- **Policy Parsing** — Parse government policy documents into structured format
+- **Grievance Dispatch** — Dispatch enterprise grievances by priority to appropriate assignees
+
+## Usage
+
+```js
+import { profileEnterprise, matchSupplyDemand, parsePolicy, dispatchGrievance } from '@liuhange/party-eco-agent'
+
+const enterprise = { id: 'E001', name: 'XX Bakery', industry: 'food', location: 'Main St', scale: 'small', creditLevel: 'A' }
+console.log(profileEnterprise(enterprise))
+```
+
+## License
+
+MIT
