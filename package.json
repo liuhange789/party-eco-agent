@@ -1,6 +1,6 @@
 {
   "name": "@liuhange/party-eco-agent",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Party-building led street industry ecosystem collaboration plugin — enterprise profiling, supply-demand matching, policy parsing, grievance dispatch",
   "type": "module",
   "main": "lib/index.js",
@@ -38,6 +38,14 @@
     "grievance"
   ],
   "scripts": {
+    "build": "tsc",
     "test": "node -e \"console.log('ok')\""
-  }
+  },
+  "devDependencies": {
+    "typescript": "^5.7.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "liuhange789"
 }

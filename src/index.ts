@@ -79,4 +79,112 @@ export function dispatchGrievance(g: GrievanceItem): { dispatched: boolean; assi
 }
 
 export const name = '@liuhange/party-eco-agent'
-export const version = '1.0.0'
+export const version = '1.0.2'
+export const inject = ['tools'] as const
+
+const jsonOutput = {
+  schema: { type: 'object', additionalProperties: true },
+  render: (_args: Record<string, unknown>, value: unknown) => [
+    { type: 'text', text: JSON.stringify(value, null, 2) },
+  ],
+}
+
+export function apply(ctx: { tools: { register: (tool: unknown) => void } }) {
+  ctx.tools.register({
+    name: 'profile_enterprise',
+    description:
+      'Enterprise profiling — generate formatted enterprise profile card with industry, location, scale, credit info',
+    parameters: {
+      type: 'object',
+      properties: {
+        name: { type: 'string', description: 'Enterprise name' },
+        id: { type: 'string', description: 'Enterprise ID' },
+        industry: { type: 'string', description: 'Industry sector' },
+        location: { type: 'string', description: 'Location' },
+        scale: { type: 'string', description: 'Enterprise scale' },
+        creditLevel: { type: 'string', description: 'Credit rating level' },
+      },
+      required: ['name', 'id'],
+    },
+    output: jsonOutput,
+    async execute(args: Record<string, unknown>) {
+      try {
+        return { profile: profileEnterprise(args as unknown as Enterprise) }
+      } catch (e) {
+        return { error: 'PROFILE_ERROR', message: (e as Error).message }
+      }
+    },
+  })
+
+  ctx.tools.register({
+    name: 'match_supply_demand',
+    description:
+      'Supply-demand smart matching — match supply items with demand items by category, compute match scores',
+    parameters: {
+      type: 'object',
+      properties: {
+        supplies: { type: 'array', description: 'Supply items' },
+        demands: { type: 'array', description: 'Demand items' },
+      },
+      required: ['supplies', 'demands'],
+    },
+    output: jsonOutput,
+    async execute(args: Record<string, unknown>) {
+      try {
+        return {
+          matches: matchSupplyDemand(
+            args.supplies as SupplyDemandItem[],
+            args.demands as SupplyDemandItem[],
+          ),
+        }
+      } catch (e) {
+        return { error: 'MATCH_ERROR', message: (e as Error).message }
+      }
+    },
+  })
+
+  ctx.tools.register({
+    name: 'parse_policy',
+    description: 'Policy document parsing — extract structured policy metadata from raw policy text',
+    parameters: {
+      type: 'object',
+      properties: {
+        id: { type: 'string' },
+        title: { type: 'string' },
+        docNumber: { type: 'string' },
+        category: { type: 'string' },
+        content: { type: 'string' },
+        effectiveDate: { type: 'string' },
+      },
+      required: ['id', 'title'],
+    },
+    output: jsonOutput,
+    async execute(args: Record<string, unknown>) {
+      try {
+        return { policy: parsePolicy(args) }
+      } catch (e) {
+        return { error: 'POLICY_ERROR', message: (e as Error).message }
+      }
+    },
+  })
+
+  ctx.tools.register({
+    name: 'dispatch_grievance',
+    description: 'Grievance auto-dispatch — assign grievance to appropriate handler based on priority level',
+    parameters: {
+      type: 'object',
+      properties: {
+        priority: { type: 'string', enum: ['urgent', 'high', 'medium', 'low'], description: 'Priority level' },
+      },
+      required: ['priority'],
+    },
+    output: jsonOutput,
+    async execute(args: Record<string, unknown>) {
+      try {
+        return dispatchGrievance(args as unknown as GrievanceItem)
+      } catch (e) {
+        return { error: 'DISPATCH_ERROR', message: (e as Error).message }
+      }
+    },
+  })
+}

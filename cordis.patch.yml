@@ -1,18 +1,4 @@
 # Cordis Framework Patch Declaration for @liuhange/party-eco-agent
-- target: loaders.web
-  action: insert
-  entry:
-    id: "@liuhange/party-eco-agent"
-    name: "@liuhange/party-eco-agent"
-    version: "1.0.1"
-- target: loaders.headless
-  action: insert
-  entry:
-    id: "@liuhange/party-eco-agent"
-    name: "@liuhange/party-eco-agent"
-    version: "1.0.1"
-- target: tools
-  action: register
-  description: Register party-eco-agent tools into Cordis runtime
-  plugin: "@liuhange/party-eco-agent"
-  version: "1.0.1"
+- insert:
+    - id: "@liuhange/party-eco-agent"
+      name: "@liuhange/party-eco-agent"
